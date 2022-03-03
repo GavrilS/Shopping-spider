@@ -1,0 +1,15 @@
+With brand only:
+https://www.emag.bg/search/Xiomi?ref=effective_search
+
+
+With category only:
+emag.bg/search/hladilnici?ref=effective_search
+
+With brand and category:
+emag.bg/search/BRAND%20CATEGORY?ref=effective_search
+
+With brand and multiple category:
+emag.bg/search/BRAND%20CATEGORY1%20CATEGORYn?ref=effective_search
+
+With multiple category only:
+emag.bg/search/CATEGORY1%20CATEGORYn?ref=effective_search

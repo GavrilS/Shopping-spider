@@ -6,8 +6,17 @@ from ..items import ECommerceItem
 
 class EmagBgSpider(scrapy.Spider):
     name = "emag"
-    # allowed_domains = ['emag.bg/search/tablet']
-    start_urls = ["http://emag.bg/search/tablet/"]
+    main_url = ["https://www.emag.bg/search/", "?ref=effective_search"]
+    
+    def __init__(self, search):
+        super().__init__()
+        self.start_urls = self.build_url(search_term=search,main_url=self.main_url)
+    
+    def build_url(self, search_term, main_url):
+        if not search_term:
+            pass
+        search_url = main_url[0] + search_term + main_url[1]
+        return [search_url]
 
     def parse(self, response):
         items = ECommerceItem()
