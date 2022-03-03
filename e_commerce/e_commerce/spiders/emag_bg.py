@@ -1,3 +1,6 @@
+"""
+Usage: scrapy crawl emag -a search='samsung tablet'
+"""
 from itertools import product
 from telnetlib import EC
 import scrapy
