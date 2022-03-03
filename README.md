@@ -19,4 +19,4 @@ A spider to gather shopping prices on products of interest.
 - Create a spider(from within the project folder):
     scrapy genspider <name-of-spider>
 - Run the spider:
-    scrapy crawl <name-of-spider>
+    scrapy crawl <name-of-spider> (-a search=search)
