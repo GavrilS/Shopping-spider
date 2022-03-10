@@ -4,6 +4,7 @@ Usage: scrapy crawl emag -a search='samsung tablet'
 from itertools import product
 from telnetlib import EC
 import scrapy
+from scrapy.selector import Selector
 from ..items import ECommerceItem
 
 
@@ -21,15 +22,16 @@ class EmagBgSpider(scrapy.Spider):
         search_url = main_url[0] + search_term + main_url[1]
         return [search_url]
 
+
     def parse(self, response):
         items = ECommerceItem()
+        product_items = response.css(".js-product-data").extract()
+        # print(product_items)
+        for item in product_items:
+            print("-----------------------------------")
+            html_item = Selector(text=item)
+            items['product_name'] = html_item.css(".mrg-btm-xxs.js-product-url::text").extract()[0]
+            items['product_link'] = html_item.css(".mrg-btm-xxs.js-product-url::attr(href)").extract()[0]
+            items['product_price'] = html_item.css(".product-new-price::text").extract()[0]
 
-        product_name = response.css(".mrg-btm-xxs.js-product-url::text").extract()
-        product_link = response.css(".mrg-btm-xxs.js-product-url::attr(href)").extract()
-        product_price = response.css(".product-new-price::text").extract()
-
-        items["product_name"] = product_name
-        items["product_link"] = product_link
-        items["product_price"] = product_price
-
-        yield items
+            yield items
