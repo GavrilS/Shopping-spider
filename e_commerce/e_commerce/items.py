@@ -13,4 +13,8 @@ class ECommerceItem(scrapy.Item):
     product_name = scrapy.Field()
     product_link = scrapy.Field()
     product_price = scrapy.Field()
-    pass
+    search = scrapy.Field()
+    date = scrapy.Field()
+    brand = scrapy.Field()
+    site = scrapy.Field()
+    user = scrapy.Field()
