@@ -20,3 +20,4 @@ A spider to gather shopping prices on products of interest.
     scrapy genspider <name-of-spider>
 - Run the spider:
     scrapy crawl <name-of-spider> (-a search=search)
+    scrapy crawl <name-of-spider> (-a search=search -a brand=brand -a site=site -a user=user_id)
