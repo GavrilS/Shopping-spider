@@ -6,17 +6,25 @@
 
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
+import os
+from dotenv import load_dotenv
 import psycopg2
 
 class ECommercePipeline:
 
     def __init__(self) -> None:
+        load_dotenv()
+        self.db_user = os.getenv('DB_USER')
+        self.db_pass = os.getenv('DB_PASS')
+        self.db_host = os.getenv('DB_HOST')
+        self.db_port = os.getenv('DB_PORT')
+        self.db_name = os.getenv('DB_NAME')
         self.create_connection()
 
     def create_connection(self):
         try:
             self.conn = psycopg2.connect(
-                database='',user='',password='',host='',port=''
+                database=self.db_name,user=self.db_user,password=self.db_pass,host=self.db_host,port=self.db_port
             )
             self.cursor = self.conn.cursor()
         except Exception as e:
@@ -25,7 +33,19 @@ class ECommercePipeline:
             exit()
 
     def close_connection(self):
-        self.conn.close()
+        try:
+            self.cursor.close()
+            self.conn.close()
+        except Exception as e:
+            print("Closing connection exception ^^^^^^^^^^^^^^^^^^^^")
+            print(e)
+
+    def save_db_item(self, elem):
+        pass
 
     def process_item(self, item, spider):
-        return item
+        for elem in item:
+            self.save_db_item(elem)
+        
+        self.conn.commit()
+        self.close_connection()
