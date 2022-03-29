@@ -41,7 +41,21 @@ class ECommercePipeline:
             print(e)
 
     def save_db_item(self, elem):
-        pass
+        user_id = elem['user']
+        search_term = elem['search']
+        product_name = elem['product_name']
+        product_link = elem['product_link']
+        product_price = elem['product_price']
+        date = elem['date']
+        brand = elem['brand']
+        site = elem['site']
+        query = f"""INSERT INTO items(user_id, search_term, product_name, product_link, product_price, date, brand, site)
+            VALUES({user_id}, {search_term}, {product_name}, {product_link}, {product_price}, {date}, {brand}, {site}) RETURNING item_id;"""
+        
+        self.cursor.execute(query)
+        item_id = self.cursor.fetchone()[0]
+        
+        print(item_id)
 
     def process_item(self, item, spider):
         for elem in item:
