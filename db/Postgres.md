@@ -44,15 +44,24 @@ GRANT ALL PRIVILEGES ON DATABASE e_commerce to gavril;
 #
 - Create tables:
 #
-CREATE TABLE IF NOT EXISTS user_searches (
+# CREATE TABLE IF NOT EXISTS user_searches (
+#    user_id INT GENERATED ALWAYS AS IDENTITY,
+#    search_term VARCHAR(255) NOT NULL,
+#    brand VARCHAR(100),
+#    site VARCHAR(150),
+#    PRIMARY KEY(user_id)
+# );
+
+CREATE TABLE IF NOT EXISTS users (
     user_id INT GENERATED ALWAYS AS IDENTITY,
-    search_term VARCHAR(255) NOT NULL,
-    brand VARCHAR(100),
-    site VARCHAR(150),
+    account_name VARCHAR(100) NOT NULL,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(100),
     PRIMARY KEY(user_id)
 );
 
-CREATE TABLE IF NOT EXISTS items(
+CREATE TABLE IF NOT EXISTS e_items(
     item_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     search_term VARCHAR(255) NOT NULL,
@@ -65,6 +74,6 @@ CREATE TABLE IF NOT EXISTS items(
     PRIMARY KEY(item_id),
     CONSTRAINT fk_searches
         FOREIGN KEY(user_id)
-            REFERENCES user_searches(user_id)
+            REFERENCES users(user_id)
 );
 #
